@@ -7,6 +7,12 @@ export default class Node {
     this.#left = left;
     this.#right = right;
   }
+  set left(node) {
+    this.#left = node;
+  }
+  set right(node) {
+    this.#right = node;
+  }
   get value() {
     return this.#value;
   }

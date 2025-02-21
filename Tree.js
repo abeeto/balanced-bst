@@ -16,7 +16,11 @@ class Tree {
     let helper = (array) => {
       let midPoint = Math.floor(array.length / 2);
       if (midPoint === 0) {
-        let nodeToReturn = new Node(null, null, array[midPoint]);
+        let nodeToReturn = new Node(
+          null,
+          null,
+          array[midPoint] ? array[midPoint] : null
+        );
         return nodeToReturn;
       }
       let left = helper(array.slice(0, midPoint));
@@ -25,6 +29,28 @@ class Tree {
       return root;
     };
     return helper(newArr);
+  }
+  insert(value) {
+    let helper = ({ parent = this.#root, value }) => {
+      if (parent.value === value) {
+        return;
+      }
+      let toAdd = new Node(null, null, value);
+      if (value < parent.value && parent.left === null) {
+        parent.left = toAdd;
+        return;
+      } else if (value > parent.value && parent.right === null) {
+        parent.right = toAdd;
+        return;
+      } else if (value < parent.value) {
+        helper({ parent: parent.left, value: value });
+      } else if (value > parent.value) {
+        helper({ parent: parent.right, value: value });
+      } else {
+        throw Error("Invalid value!");
+      }
+    };
+    helper({ value });
   }
 
   prettyPrint(node = this.#root, prefix = "", isLeft = true) {
@@ -45,5 +71,8 @@ class Tree {
   }
 }
 
-let tree = new Tree([100, 98, 50, 65, 32, 23, 48, 20, 3, 4]);
+let tree = new Tree([100, 500, 20, 10, 30]);
+tree.prettyPrint();
+tree.insert(40);
+
 tree.prettyPrint();
