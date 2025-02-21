@@ -6,6 +6,10 @@ class Tree {
     this.#root = this.#buildTree(arr);
   }
 
+  get root() {
+    return this.#root;
+  }
+
   #buildTree(arr) {
     let newArr = Array.from(new Set(arr));
     newArr.sort((a, b) => a - b);
@@ -21,9 +25,6 @@ class Tree {
       return root;
     };
     return helper(newArr);
-  }
-  get root() {
-    return this.#root;
   }
 
   prettyPrint(node = this.#root, prefix = "", isLeft = true) {
