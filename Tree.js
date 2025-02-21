@@ -16,12 +16,11 @@ class Tree {
     let helper = (array) => {
       let midPoint = Math.floor(array.length / 2);
       if (midPoint === 0) {
-        let nodeToReturn = new Node(
-          null,
-          null,
-          array[midPoint] ? array[midPoint] : null
-        );
-        return nodeToReturn;
+        if (array[midPoint]) {
+          let nodeToReturn = new Node(null, null, array[midPoint]);
+          return nodeToReturn;
+        }
+        return null;
       }
       let left = helper(array.slice(0, midPoint));
       let right = helper(array.slice(midPoint + 1, array.length));
@@ -73,6 +72,5 @@ class Tree {
 
 let tree = new Tree([100, 500, 20, 10, 30]);
 tree.prettyPrint();
-tree.insert(40);
-
+tree.insert(600);
 tree.prettyPrint();
