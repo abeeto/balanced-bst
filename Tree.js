@@ -51,6 +51,49 @@ class Tree {
     };
     helper({ value });
   }
+  delete(value) {
+    let helper = ({ current = this.#root, value, parent = this.#root }) => {
+      if (current.value === value) {
+        // time to delete - deal with all the cases here
+        if (current.left && current.right) {
+          if (current.value < parent.value) {
+            parent.left = current.right;
+            parent.left.left = current.left;
+          } else {
+            parent.right = current.left;
+            parent.right.right = current.right;
+          }
+        } else if (current.left || current.right) {
+          if (current.left) {
+            current.value = current.left.value;
+            current.left = null;
+          } else {
+            current.value = current.right.value;
+            current.right = null;
+          }
+        } else if (!current.left && !current.right) {
+          // no children - i.e. leaf node:
+          if (parent.right?.value === current.value) {
+            parent.right = null;
+          } else {
+            parent.left = null;
+          }
+        } else {
+          throw Error("I must have not taken a case into account");
+        }
+        return;
+      }
+      // otherwise - traverse the tree or exit
+      if (value > current.value && current.right) {
+        helper({ current: current.right, value: value, parent: current });
+      }
+      if (value < current.value && current.left) {
+        helper({ current: current.left, value: value, parent: current });
+      }
+      return;
+    };
+    helper({ value });
+  }
 
   prettyPrint(node = this.#root, prefix = "", isLeft = true) {
     if (node === null) {
@@ -70,7 +113,13 @@ class Tree {
   }
 }
 
-let tree = new Tree([100, 500, 20, 10, 30]);
+let tree = new Tree([50, 70, 40, 43, 80]);
 tree.prettyPrint();
-tree.insert(600);
+tree.delete(80);
+tree.prettyPrint();
+tree.insert(45);
+tree.prettyPrint();
+tree.delete(40);
+tree.prettyPrint();
+tree.delete(43);
 tree.prettyPrint();

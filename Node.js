@@ -13,6 +13,9 @@ export default class Node {
   set right(node) {
     this.#right = node;
   }
+  set value(value) {
+    this.#value = value;
+  }
   get value() {
     return this.#value;
   }
