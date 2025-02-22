@@ -94,6 +94,24 @@ class Tree {
     };
     helper({ value });
   }
+  find(value) {
+    let findNodeRecursively = (curr = this.#root) => {
+      if (curr === null) {
+        return null;
+      }
+      if (value === curr.value) {
+        return curr;
+      } else if (value > curr.value) {
+        return findNodeRecursively(curr.right);
+      } else if (value < curr.value) {
+        return findNodeRecursively(curr.left);
+      } else {
+        throw Error("Some edge case is not being considered");
+      }
+    };
+    let foundNode = findNodeRecursively();
+    return foundNode;
+  }
 
   prettyPrint(node = this.#root, prefix = "", isLeft = true) {
     if (node === null) {
@@ -115,11 +133,4 @@ class Tree {
 
 let tree = new Tree([50, 70, 40, 43, 80]);
 tree.prettyPrint();
-tree.delete(80);
-tree.prettyPrint();
-tree.insert(45);
-tree.prettyPrint();
-tree.delete(40);
-tree.prettyPrint();
-tree.delete(43);
-tree.prettyPrint();
+console.log(tree.find(43).left.value);
