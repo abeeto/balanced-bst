@@ -112,6 +112,32 @@ class Tree {
     let foundNode = findNodeRecursively();
     return foundNode;
   }
+  levelOrder(callback) {
+    if (typeof callback !== "function") {
+      throw Error("Must provide function as callback");
+    }
+    // recursive
+    let helper = (curr = this.#root, arr = [this.#root]) => {
+      // must apply callback to each node (depth first)
+      if (!curr) return;
+      if (!curr.left && !curr.right) return;
+      if (curr.left) {
+        arr.push(curr.left);
+      }
+      if (curr.right) {
+        arr.push(curr.right);
+      }
+      if (curr.left) {
+        helper(curr.left, arr);
+      }
+      if (curr.right) {
+        helper(curr.right, arr);
+      }
+      return arr;
+    };
+    let breadthFirstArray = helper();
+    breadthFirstArray.forEach(callback);
+  }
 
   prettyPrint(node = this.#root, prefix = "", isLeft = true) {
     if (node === null) {
@@ -133,4 +159,8 @@ class Tree {
 
 let tree = new Tree([50, 70, 40, 43, 80]);
 tree.prettyPrint();
-console.log(tree.find(43).left.value);
+tree.insert(48);
+tree.insert(78);
+tree.insert(100);
+tree.prettyPrint();
+tree.levelOrder((node) => console.log(node.value));
