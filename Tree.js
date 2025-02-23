@@ -118,7 +118,7 @@ class Tree {
     }
     // recursive
     let queue = [this.#root];
-    let helper = () => {
+    let traverseLevelOrder = () => {
       if (queue.length === 0) return;
       let toVisit = queue.shift();
       callback(toVisit);
@@ -128,9 +128,9 @@ class Tree {
       if (toVisit.right) {
         queue.push(toVisit.right);
       }
-      helper();
+      traverseLevelOrder();
     };
-    helper();
+    traverseLevelOrder();
   }
 
   prettyPrint(node = this.#root, prefix = "", isLeft = true) {
