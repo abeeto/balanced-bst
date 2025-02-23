@@ -117,26 +117,20 @@ class Tree {
       throw Error("Must provide function as callback");
     }
     // recursive
-    let helper = (curr = this.#root, arr = [this.#root]) => {
-      // must apply callback to each node (depth first)
-      if (!curr) return;
-      if (!curr.left && !curr.right) return;
-      if (curr.left) {
-        arr.push(curr.left);
+    let queue = [this.#root];
+    let helper = () => {
+      if (queue.length === 0) return;
+      let toVisit = queue.shift();
+      callback(toVisit);
+      if (toVisit.left) {
+        queue.push(toVisit.left);
       }
-      if (curr.right) {
-        arr.push(curr.right);
+      if (toVisit.right) {
+        queue.push(toVisit.right);
       }
-      if (curr.left) {
-        helper(curr.left, arr);
-      }
-      if (curr.right) {
-        helper(curr.right, arr);
-      }
-      return arr;
+      helper();
     };
-    let breadthFirstArray = helper();
-    breadthFirstArray.forEach(callback);
+    helper();
   }
 
   prettyPrint(node = this.#root, prefix = "", isLeft = true) {
@@ -162,5 +156,6 @@ tree.prettyPrint();
 tree.insert(48);
 tree.insert(78);
 tree.insert(100);
+tree.insert(41);
 tree.prettyPrint();
 tree.levelOrder((node) => console.log(node.value));
