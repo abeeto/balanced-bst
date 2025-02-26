@@ -135,7 +135,52 @@ class Tree {
     };
     traverseLevelOrder();
   }
+  inOrder(callback) {
+    if (typeof callback !== "function") {
+      throw Error("Must provide function as callback");
+    }
+    // visit left tree, then callback root, then visit right tree
+    let helper = (root) => {
+      if (root === null) {
+        return;
+      }
+      helper(root.left);
+      callback(root);
+      helper(root.right);
+    };
+    helper(this.#root);
+  }
 
+  postOrder(callback) {
+    if (typeof callback !== "function") {
+      throw Error("Must provide function as callback");
+    }
+    // visit left tree, then callback root, then visit right tree
+    let helper = (root) => {
+      if (root === null) {
+        return;
+      }
+      helper(root.left);
+      helper(root.right);
+      callback(root);
+    };
+    helper(this.#root);
+  }
+  preOrder(callback) {
+    if (typeof callback !== "function") {
+      throw Error("Must provide function as callback");
+    }
+    // visit left tree, then callback root, then visit right tree
+    let helper = (root) => {
+      if (root === null) {
+        return;
+      }
+      callback(root);
+      helper(root.left);
+      helper(root.right);
+    };
+    helper(this.#root);
+  }
   prettyPrint(node = this.#root, prefix = "", isLeft = true) {
     if (node === null) {
       return;
@@ -160,3 +205,9 @@ tree.insert(78);
 tree.insert(100);
 tree.insert(41);
 tree.prettyPrint();
+console.log("Preorder:");
+tree.preOrder((node) => console.log(node.value));
+console.log("Inorder:");
+tree.inOrder((node) => console.log(node.value));
+console.log("Postorder:");
+tree.postOrder((node) => console.log(node.value));
