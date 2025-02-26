@@ -207,6 +207,19 @@ class Tree {
     };
     return helper(this.#root, node);
   }
+  isBalanced() {
+    let helper = (curr) => {
+      if (this.height(curr) === 0) {
+        return curr;
+      }
+      return (
+        Math.abs(
+          this.height(helper(curr.left)) - this.height(helper(curr.right))
+        ) < 2
+      );
+    };
+    return helper(this.#root);
+  }
   prettyPrint(node = this.#root, prefix = "", isLeft = true) {
     if (node === null) {
       return;
@@ -226,13 +239,6 @@ class Tree {
 }
 
 let tree = new Tree([50, 70, 40, 43, 80]);
-tree.insert(48);
-tree.insert(78);
-tree.insert(100);
-tree.insert(41);
-tree.insert(44);
-tree.insert(42);
-
 tree.prettyPrint();
-console.log(tree.height(tree.find(40)));
-console.log(tree.depth(tree.find(42)));
+
+console.log(tree.isBalanced());
