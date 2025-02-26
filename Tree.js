@@ -220,6 +220,11 @@ class Tree {
     };
     return helper(this.#root);
   }
+  rebalance() {
+    let allNodesInorder = [];
+    this.inOrder((node) => allNodesInorder.push(node));
+    this.#buildTree(allNodesInorder);
+  }
   prettyPrint(node = this.#root, prefix = "", isLeft = true) {
     if (node === null) {
       return;
@@ -240,5 +245,3 @@ class Tree {
 
 let tree = new Tree([50, 70, 40, 43, 80]);
 tree.prettyPrint();
-
-console.log(tree.isBalanced());
