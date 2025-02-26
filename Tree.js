@@ -1,5 +1,5 @@
 import Node from "./Node.js";
-class Tree {
+export default class Tree {
   #root;
 
   constructor(arr) {
@@ -222,7 +222,7 @@ class Tree {
   }
   rebalance() {
     let allNodesInorder = [];
-    this.inOrder((node) => allNodesInorder.push(node));
+    this.inOrder((node) => allNodesInorder.push(node.value));
     this.#buildTree(allNodesInorder);
   }
   prettyPrint(node = this.#root, prefix = "", isLeft = true) {
@@ -242,6 +242,3 @@ class Tree {
     }
   }
 }
-
-let tree = new Tree([50, 70, 40, 43, 80]);
-tree.prettyPrint();
