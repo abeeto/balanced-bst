@@ -181,6 +181,32 @@ class Tree {
     };
     helper(this.#root);
   }
+  height(node) {
+    let helper = (curr, height) => {
+      if (!curr?.left && !curr?.right) {
+        return height;
+      }
+      height++;
+      return Math.max(helper(curr?.left, height), helper(curr?.right, height));
+    };
+    return helper(node, 0);
+  }
+
+  depth(node) {
+    let depth = 0;
+    let helper = (curr, node) => {
+      if (curr.value === node.value) {
+        return depth;
+      } else if (node.value > curr.value) {
+        depth++;
+        return helper(curr.right, node);
+      } else if (node.value < curr.value) {
+        depth++;
+        return helper(curr.left, node);
+      }
+    };
+    return helper(this.#root, node);
+  }
   prettyPrint(node = this.#root, prefix = "", isLeft = true) {
     if (node === null) {
       return;
@@ -204,10 +230,9 @@ tree.insert(48);
 tree.insert(78);
 tree.insert(100);
 tree.insert(41);
+tree.insert(44);
+tree.insert(42);
+
 tree.prettyPrint();
-console.log("Preorder:");
-tree.preOrder((node) => console.log(node.value));
-console.log("Inorder:");
-tree.inOrder((node) => console.log(node.value));
-console.log("Postorder:");
-tree.postOrder((node) => console.log(node.value));
+console.log(tree.height(tree.find(40)));
+console.log(tree.depth(tree.find(42)));
