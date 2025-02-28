@@ -139,7 +139,6 @@ export default class Tree {
     if (typeof callback !== "function") {
       throw Error("Must provide function as callback");
     }
-    // visit left tree, then callback root, then visit right tree
     let helper = (root) => {
       if (root === null) {
         return;
@@ -155,7 +154,6 @@ export default class Tree {
     if (typeof callback !== "function") {
       throw Error("Must provide function as callback");
     }
-    // visit left tree, then callback root, then visit right tree
     let helper = (root) => {
       if (root === null) {
         return;
@@ -170,7 +168,6 @@ export default class Tree {
     if (typeof callback !== "function") {
       throw Error("Must provide function as callback");
     }
-    // visit left tree, then callback root, then visit right tree
     let helper = (root) => {
       if (root === null) {
         return;
