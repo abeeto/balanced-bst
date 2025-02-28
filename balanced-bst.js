@@ -18,14 +18,14 @@ tree.insert(175);
 tree.insert(190);
 tree.insert(140);
 
-console.log("INLEVEL:");
-tree.levelOrder((node) => console.log(node.value));
-console.log("PREORDER:");
-tree.preOrder((node) => console.log(node.value));
-console.log("POSTORDER:");
-tree.postOrder((node) => console.log(node.value));
-console.log("INORDER:");
-tree.inOrder((node) => console.log(node.value));
+// console.log("INLEVEL:");
+// tree.levelOrder((node) => console.log(node.value));
+// console.log("PREORDER:");
+// tree.preOrder((node) => console.log(node.value));
+// console.log("POSTORDER:");
+// tree.postOrder((node) => console.log(node.value));
+// console.log("INORDER:");
+// tree.inOrder((node) => console.log(node.value));
 
 console.log(tree.isBalanced());
 tree.prettyPrint();

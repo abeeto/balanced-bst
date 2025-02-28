@@ -207,26 +207,11 @@ export default class Tree {
     };
     return helper(this.#root, node);
   }
-  isBalanced() {
-    const helper = (curr) => {
-      if (!curr) {
-        return { balanced: true, height: 0 }; // Base case: null node
-      }
-
-      const left = helper(curr.left);
-      const right = helper(curr.right);
-
-      const balanced =
-        left.balanced &&
-        right.balanced &&
-        Math.abs(left.height - right.height) < 2;
-
-      const height = Math.max(left.height, right.height) + 1;
-
-      return { balanced, height };
-    };
-
-    return helper(this.#root).balanced;
+  isBalanced(node = this.root) {
+    if (!node) return true;
+    if (!this.isBalanced(node.left) || !this.isBalanced(node.right))
+      return false;
+    return Math.abs(this.height(node.left) - this.height(node.right)) < 2;
   }
   rebalance() {
     let allNodesInorder = [];
