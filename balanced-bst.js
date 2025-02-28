@@ -31,3 +31,4 @@ console.log(tree.isBalanced());
 tree.prettyPrint();
 tree.rebalance();
 tree.prettyPrint();
+console.log(tree.isBalanced());

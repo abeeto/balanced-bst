@@ -9,8 +9,8 @@ export default class Tree {
   get root() {
     return this.#root;
   }
-
   #buildTree(arr) {
+    console.log("building tree");
     let newArr = Array.from(new Set(arr));
     newArr.sort((a, b) => a - b);
     let helper = (array) => {
@@ -208,22 +208,30 @@ export default class Tree {
     return helper(this.#root, node);
   }
   isBalanced() {
-    let helper = (curr) => {
-      if (this.height(curr) === 0) {
-        return curr;
+    const helper = (curr) => {
+      if (!curr) {
+        return { balanced: true, height: 0 }; // Base case: null node
       }
-      return (
-        Math.abs(
-          this.height(helper(curr.left)) - this.height(helper(curr.right))
-        ) < 2
-      );
+
+      const left = helper(curr.left);
+      const right = helper(curr.right);
+
+      const balanced =
+        left.balanced &&
+        right.balanced &&
+        Math.abs(left.height - right.height) < 2;
+
+      const height = Math.max(left.height, right.height) + 1;
+
+      return { balanced, height };
     };
-    return helper(this.#root);
+
+    return helper(this.#root).balanced;
   }
   rebalance() {
     let allNodesInorder = [];
     this.inOrder((node) => allNodesInorder.push(node.value));
-    this.#buildTree(allNodesInorder);
+    this.#root = this.#buildTree(allNodesInorder);
   }
   prettyPrint(node = this.#root, prefix = "", isLeft = true) {
     if (node === null) {
